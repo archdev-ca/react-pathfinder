@@ -7,7 +7,7 @@ import React from "react";
 export default function Home() {
   const [gridSize, setGridSize] = React.useState(10);
   let gridArray = [...Array(gridSize).keys()];
-  let dim = `${(1 / gridSize) * 100}%`;
+  let dim = 1 / gridSize;
   return (
     <main className="container mx-auto py-4">
       <div className="grid grid-cols-2 gap-4">

@@ -5,7 +5,7 @@ type Props = {
 };
 
 function GridContainer({ children }: Props) {
-  return <div>{children}</div>;
+  return <div className="border border-teal-400 inline-block">{children}</div>;
 }
 
 export default GridContainer;

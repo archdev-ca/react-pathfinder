@@ -5,7 +5,7 @@ type Props = {
 };
 
 function GridRow({ children }: Props) {
-  return <div>{children}</div>;
+  return <div style={{ fontSize: 0 }}>{children}</div>;
 }
 
 export default GridRow;
