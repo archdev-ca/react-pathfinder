@@ -3,6 +3,9 @@ import React from "react";
 type Props = {
   children?: React.ReactNode;
   size: number;
+  row: number;
+  col: number;
+  onClick: () => void;
 };
 
 function Grid({ children, size }: Props) {

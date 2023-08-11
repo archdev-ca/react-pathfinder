@@ -21,7 +21,15 @@ export default function Home() {
           return (
             <GridRow key={i1}>
               {gridArray.map((_, i2) => {
-                return <Grid key={i2} size={dim} />;
+                return (
+                  <Grid
+                    key={i2}
+                    size={dim}
+                    row={i1}
+                    col={i2}
+                    onClick={() => {}}
+                  />
+                );
               })}
             </GridRow>
           );
