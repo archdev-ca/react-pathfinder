@@ -2,10 +2,13 @@
 import Grid from "@/components/Grid";
 import GridContainer from "@/components/GridContainer";
 import GridRow from "@/components/GridRow";
+import { GridAddress } from "@/interfaces";
 import React from "react";
 
 export default function Home() {
   const [gridSize, setGridSize] = React.useState(10);
+  const [startCell, setStartCell] = React.useState<GridAddress | null>(null);
+  const [endCell, setEndCell] = React.useState<GridAddress | null>(null);
   let gridArray = [...Array(gridSize).keys()];
   let dim = 1 / gridSize;
   return (
