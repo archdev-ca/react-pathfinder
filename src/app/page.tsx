@@ -2,13 +2,15 @@
 import Grid from "@/components/Grid";
 import GridContainer from "@/components/GridContainer";
 import GridRow from "@/components/GridRow";
-import { GridAddress } from "@/interfaces";
+import { AddressMap, GridAddress } from "@/interfaces";
 import React from "react";
 
 export default function Home() {
   const [gridSize, setGridSize] = React.useState(10);
-  const [startCell, setStartCell] = React.useState<GridAddress | null>(null);
-  const [endCell, setEndCell] = React.useState<GridAddress | null>(null);
+  const [startNode, setStartNode] = React.useState<GridAddress | null>(null);
+  const [endNode, setEndNode] = React.useState<GridAddress | null>(null);
+  const [obstacles, setObstacles] = React.useState<AddressMap>({});
+
   let gridArray = [...Array(gridSize).keys()];
   let dim = 1 / gridSize;
   return (
@@ -31,6 +33,17 @@ export default function Home() {
                     row={i1}
                     col={i2}
                     onClick={() => {}}
+                    isStartNode={
+                      startNode && startNode[0] === i1 && startNode[1] === i2
+                        ? true
+                        : false
+                    }
+                    isEndNode={
+                      endNode && endNode[0] === i1 && endNode[1] === i2
+                        ? true
+                        : false
+                    }
+                    isObstacle={Boolean(obstacles[`${i1}:${i2}`])}
                   />
                 );
               })}

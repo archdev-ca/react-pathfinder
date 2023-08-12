@@ -6,6 +6,9 @@ type Props = {
   row: number;
   col: number;
   onClick: () => void;
+  isStartNode: boolean;
+  isEndNode: boolean;
+  isObstacle: boolean;
 };
 
 function Grid({ children, size }: Props) {
