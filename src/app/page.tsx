@@ -2,18 +2,25 @@
 import Grid from "@/components/Grid";
 import GridContainer from "@/components/GridContainer";
 import GridRow from "@/components/GridRow";
-import { AddressMap, GridAddress } from "@/interfaces";
+import { ObstacleMap, GridAddress } from "@/interfaces";
+import solveAAsterisk from "@/lib/aAsterisk";
 import React from "react";
 
 export default function Home() {
   const [gridSize, setGridSize] = React.useState(10);
   const [startNode, setStartNode] = React.useState<GridAddress | null>([0, 0]);
   const [endNode, setEndNode] = React.useState<GridAddress | null>([8, 9]);
-  const [obstacles, setObstacles] = React.useState<AddressMap>({
+  const [obstacles, setObstacles] = React.useState<ObstacleMap>({
     "2:1": true,
     "2:2": true,
     "2:3": true,
   });
+
+  const handleClickSolve = () => {
+    if (gridSize && startNode && endNode) {
+      solveAAsterisk(gridSize, startNode, endNode, obstacles);
+    }
+  };
 
   let gridArray = [...Array(gridSize).keys()];
   let dim = 1 / gridSize;
@@ -25,7 +32,10 @@ export default function Home() {
           <input type="number" />
         </div>
         <div>
-          <button className="bg-teal-500 hover:bg-teal-400 active:bg-teal-600 transition-all duration-300 text-white px-6 py-2 rounded flex items-center">
+          <button
+            className="bg-teal-500 hover:bg-teal-400 active:bg-teal-600 transition-all duration-300 text-white px-6 py-2 rounded flex items-center"
+            onClick={handleClickSolve}
+          >
             Solve
             <svg
               xmlns="http://www.w3.org/2000/svg"
