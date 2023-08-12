@@ -7,9 +7,13 @@ import React from "react";
 
 export default function Home() {
   const [gridSize, setGridSize] = React.useState(10);
-  const [startNode, setStartNode] = React.useState<GridAddress | null>(null);
-  const [endNode, setEndNode] = React.useState<GridAddress | null>(null);
-  const [obstacles, setObstacles] = React.useState<AddressMap>({});
+  const [startNode, setStartNode] = React.useState<GridAddress | null>([0, 0]);
+  const [endNode, setEndNode] = React.useState<GridAddress | null>([8, 9]);
+  const [obstacles, setObstacles] = React.useState<AddressMap>({
+    "2:1": true,
+    "2:2": true,
+    "2:3": true,
+  });
 
   let gridArray = [...Array(gridSize).keys()];
   let dim = 1 / gridSize;

@@ -11,7 +11,7 @@ type Props = {
   isObstacle: boolean;
 };
 
-function Grid({ children, size }: Props) {
+function Grid({ children, size, isStartNode, isEndNode, isObstacle }: Props) {
   return (
     <div
       className="inline-block relative"
@@ -20,8 +20,10 @@ function Grid({ children, size }: Props) {
         paddingBottom: `calc((100vh - 400px) * ${size})`,
       }}
     >
-      <div className="absolute left-0 right-0 top-0 bottom-0 border border-teal-400">
-        grid
+      <div className="absolute left-0 right-0 top-0 bottom-0 border border-teal-400 text-teal-400 text-sm flex justify-center items-center">
+        {isStartNode ? "start" : null}
+        {isEndNode ? "end" : null}
+        {isObstacle ? "x" : null}
       </div>
     </div>
   );
