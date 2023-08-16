@@ -11,4 +11,7 @@ export interface NodeInterface {
   f: number;
   g: number;
   h: number;
+  parent: NodeInterface | null;
+  isStart: boolean;
+  isEnd: boolean;
 }
