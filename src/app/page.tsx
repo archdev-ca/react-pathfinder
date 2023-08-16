@@ -1,5 +1,5 @@
 "use client";
-import Grid from "@/components/Grid";
+import GridCell from "@/components/GridCell";
 import GridContainer from "@/components/GridContainer";
 import GridRow from "@/components/GridRow";
 import { ObstacleMap, GridAddress } from "@/interfaces";
@@ -20,6 +20,30 @@ export default function Home() {
     if (gridSize && startNode && endNode) {
       solveAAsterisk(gridSize, startNode, endNode, obstacles);
     }
+  };
+
+  const handleClickSetObstacle = (x: number, y: number) => {
+    console.log(x, y);
+    let id = `${x}:${y}`;
+    let newObstacles = { ...obstacles };
+    if (!newObstacles[id]) {
+      newObstacles[id] = true;
+    } else {
+      delete newObstacles[id];
+    }
+    setObstacles(newObstacles);
+  };
+
+  const setAsObstacle = (x: number, y: number) => {
+    console.log(x, y);
+    let id = `${x}:${y}`;
+    let newObstacles = { ...obstacles };
+    if (!newObstacles[id]) {
+      newObstacles[id] = true;
+    } else {
+      delete newObstacles[id];
+    }
+    setObstacles(newObstacles);
   };
 
   let gridArray = [...Array(gridSize).keys()];
@@ -59,12 +83,12 @@ export default function Home() {
             <GridRow key={i1}>
               {gridArray.map((_, i2) => {
                 return (
-                  <Grid
+                  <GridCell
                     key={i2}
                     size={dim}
                     row={i1}
                     col={i2}
-                    onClick={() => {}}
+                    onClick={handleClickSetObstacle}
                     isStartNode={
                       startNode && startNode[0] === i1 && startNode[1] === i2
                         ? true

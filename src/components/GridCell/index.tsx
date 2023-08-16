@@ -5,13 +5,22 @@ type Props = {
   size: number;
   row: number;
   col: number;
-  onClick: () => void;
+  onClick: (x: number, y: number) => void;
   isStartNode: boolean;
   isEndNode: boolean;
   isObstacle: boolean;
 };
 
-function Grid({ children, size, isStartNode, isEndNode, isObstacle }: Props) {
+function GridCell({
+  children,
+  onClick,
+  row,
+  col,
+  size,
+  isStartNode,
+  isEndNode,
+  isObstacle,
+}: Props) {
   return (
     <div
       className="inline-block relative"
@@ -19,8 +28,11 @@ function Grid({ children, size, isStartNode, isEndNode, isObstacle }: Props) {
         width: `calc((100vh - 400px) * ${size})`,
         paddingBottom: `calc((100vh - 400px) * ${size})`,
       }}
+      onClick={() => {
+        onClick(row, col);
+      }}
     >
-      <div className="absolute left-0 right-0 top-0 bottom-0 border border-teal-400 text-teal-400 text-sm flex justify-center items-center">
+      <div className="absolute left-0 right-0 top-0 bottom-0 border border-teal-400 text-teal-400 text-sm flex justify-center items-center z-10">
         {isStartNode ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -68,4 +80,4 @@ function Grid({ children, size, isStartNode, isEndNode, isObstacle }: Props) {
   );
 }
 
-export default Grid;
+export default GridCell;
