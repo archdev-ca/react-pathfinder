@@ -6,9 +6,27 @@ const solveAAsterisk = (
   endNode: GridAddress,
   obstacles: ObstacleMap
 ) => {
-  const openNodes: GridAddress[] = [];
+  const openNodes: NodeInterface[] = [];
   const closedNodes: GridAddress[] = [];
-  openNodes.push(startNode);
+  openNodes.push({
+    address: {
+      x: startNode[0],
+      y: startNode[1],
+    },
+    g: 0,
+    h: 0,
+    f: 0,
+    parent: null,
+  });
+
+  function traverse() {
+    let currentNode = openNodes.pop();
+    if (currentNode) {
+      let surroundingNodes = getSurroundingNodes(currentNode);
+      console.log({ currentNode });
+      console.log({ surroundingNodes });
+    }
+  }
 
   function getSurroundingNodes(node: NodeInterface) {
     const surroundingNodes: NodeInterface[] = [];
@@ -39,11 +57,17 @@ const solveAAsterisk = (
         });
       }
     });
+    return surroundingNodes;
   }
 
   function isValidAddress(node: GridAddress) {
     // node is an obstacle
     if (obstacles[`${node[0]}:${node[1]}`]) {
+      return false;
+    }
+
+    // node is start node
+    if (node[0] === startNode[0] && node[1] === startNode[1]) {
       return false;
     }
 
@@ -56,6 +80,7 @@ const solveAAsterisk = (
     ) {
       return false;
     }
+    return true;
   }
 
   function getDistance(node1: GridAddress, node2: GridAddress) {
@@ -78,5 +103,7 @@ const solveAAsterisk = (
     getDistance(node, startNode);
     return 0;
   }
+
+  traverse();
 };
 export default solveAAsterisk;

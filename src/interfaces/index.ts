@@ -12,6 +12,6 @@ export interface NodeInterface {
   g: number;
   h: number;
   parent: NodeInterface | null;
-  isStart: boolean;
-  isEnd: boolean;
+  // isStart: boolean;
+  // isEnd: boolean;
 }
