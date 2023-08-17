@@ -18,7 +18,6 @@ export default function Home() {
 
   const handleClickSolve = () => {
     if (gridSize && startNode && endNode) {
-      console.log("solveAAsterisk");
       solveAAsterisk(gridSize, startNode, endNode, obstacles);
     }
   };

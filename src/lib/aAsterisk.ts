@@ -23,8 +23,26 @@ const solveAAsterisk = (
     let currentNode = openNodes.pop();
     if (currentNode) {
       let surroundingNodes = getSurroundingNodes(currentNode);
-      console.log({ currentNode });
-      console.log({ surroundingNodes });
+      if (surroundingNodes.length) {
+        openNodes.concat(surroundingNodes);
+        openNodes.sort((node1, node2) => {
+          if (node1.f === node2.f) {
+            if (node1.h > node2.h) {
+              return -1;
+            }
+            if (node1.h < node2.h) {
+              return 1;
+            }
+          }
+          if (node1.f > node2.f) {
+            return -1;
+          }
+          if (node1.f < node2.f) {
+            return 1;
+          }
+          return 0;
+        });
+      }
     }
   }
 
@@ -32,12 +50,12 @@ const solveAAsterisk = (
     const surroundingNodes: NodeInterface[] = [];
     const nodes: GridAddress[] = [
       [node.address.x - 1, node.address.y - 1],
+      [node.address.x - 1, node.address.y],
+      [node.address.x - 1, node.address.y + 1],
       [node.address.x, node.address.y - 1],
       [node.address.x, node.address.y + 1],
-      [node.address.x - 1, node.address.y],
+      [node.address.x + 1, node.address.y - 1],
       [node.address.x + 1, node.address.y],
-      [node.address.x - 1, node.address.y + 1],
-      [node.address.x, node.address.y + 1],
       [node.address.x + 1, node.address.y + 1],
     ];
     nodes.forEach((n) => {
@@ -48,7 +66,7 @@ const solveAAsterisk = (
         surroundingNodes.push({
           address: {
             x: n[0],
-            y: n[0],
+            y: n[1],
           },
           g: gCost,
           h: hCost,
