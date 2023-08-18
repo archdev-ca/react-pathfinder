@@ -15,3 +15,10 @@ export interface NodeInterface {
   // isStart: boolean;
   // isEnd: boolean;
 }
+
+export interface NormalizedNodeListInterface {
+  byId: {
+    [key: string]: NodeInterface;
+  };
+  allIDs: string[];
+}

@@ -1,4 +1,9 @@
-import { ObstacleMap, GridAddress, NodeInterface } from "@/interfaces";
+import {
+  ObstacleMap,
+  GridAddress,
+  NodeInterface,
+  NormalizedNodeListInterface,
+} from "@/interfaces";
 
 const solveAAsterisk = (
   gridSize: number,
@@ -6,9 +11,9 @@ const solveAAsterisk = (
   endNode: GridAddress,
   obstacles: ObstacleMap
 ) => {
-  const openNodes: NodeInterface[] = [];
+  let openNodes: NormalizedNodeListInterface = { byId: {}, allIDs: [] };
   const closedNodes: GridAddress[] = [];
-  openNodes.push({
+  openNodes.byId[`${startNode[0]}:${startNode[1]}`] = {
     address: {
       x: startNode[0],
       y: startNode[1],
@@ -17,15 +22,24 @@ const solveAAsterisk = (
     h: 0,
     f: 0,
     parent: null,
-  });
+  };
+  openNodes.allIDs.push(`${startNode[0]}:${startNode[1]}`);
 
   function traverse() {
-    let currentNode = openNodes.pop();
-    if (currentNode) {
+    const currentNodeID = openNodes.allIDs.pop();
+    const currentNode = openNodes.byId[currentNodeID!];
+    console.log(currentNode);
+    if (
+      currentNode &&
+      currentNode.address.x !== endNode[0] &&
+      currentNode.address.y !== endNode[1]
+    ) {
       let surroundingNodes = getSurroundingNodes(currentNode);
       if (surroundingNodes.length) {
-        openNodes.concat(surroundingNodes);
-        openNodes.sort((node1, node2) => {
+        openNodes = openNodes.allIDs.concat(surroundingNodes);
+        openNodes.allIDs.sort((node1ID, node2ID) => {
+          const node1 = openNodes.byId[node1ID];
+          const node2 = openNodes.byId[node2ID];
           if (node1.f === node2.f) {
             if (node1.h > node2.h) {
               return -1;
@@ -43,6 +57,10 @@ const solveAAsterisk = (
           return 0;
         });
       }
+      traverse();
+    } else {
+      console.log("finish", currentNode);
+      return ["finish", currentNode];
     }
   }
 
